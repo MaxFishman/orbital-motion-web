@@ -14,13 +14,16 @@ The Emscripten build is pthread-enabled, so it needs
 them client-side. The first visit registers the service worker and reloads
 once automatically; after that the app runs normally.
 
+Built with a performance-tuned flag set (static linking, fixed memory, no debug/
+profiling/source-map), so it's ~5.4 MB total and runs at native-like frame rate —
+important because the sketch's motion is frame-rate-dependent.
+
 ## Contents
 
 ```
 index.html            oF/emscripten shell (coi-serviceworker injected in <head>)
-index.js / .wasm      the compiled sketch (~26 MB total)
+index.js / .wasm      the compiled sketch (~5.4 MB total)
 index.data            preloaded data package
-index.wasm.map        source map (REQUIRED — the build links with LOAD_SOURCE_MAP=1)
 app.js, style.css     oF emscripten runtime glue + styling
 coi-serviceworker.js  cross-origin isolation shim for GitHub Pages
 .nojekyll             serve files verbatim (no Jekyll)
@@ -29,5 +32,5 @@ coi-serviceworker.js  cross-origin isolation shim for GitHub Pages
 
 ## Updating
 
-Replace the bundle files with a fresh Emscripten build (keep `coi-serviceworker.js`,
-`.nojekyll`, and `index.wasm.map`), commit, and push to `main`. The Action redeploys.
+Replace the bundle files with a fresh Emscripten build (keep `coi-serviceworker.js`
+and `.nojekyll`), commit, and push to `main`. The Action redeploys.
